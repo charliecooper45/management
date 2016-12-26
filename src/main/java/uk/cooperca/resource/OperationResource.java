@@ -18,14 +18,14 @@ import java.util.List;
  * @author Charlie Cooper
  */
 @RestController
-@RequestMapping
+@RequestMapping("/operations")
 public class OperationResource {
 
     @Autowired
     private OperationRepository operationRepository;
 
     @GetMapping
-    public ResponseEntity<List<Operation>> get() {
+    public ResponseEntity<List<Operation>> getAll() {
         List<Operation> operations = operationRepository.findAll();
         return new ResponseEntity<>(operations, HttpStatus.OK);
     }
