@@ -23,3 +23,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### NPM ###
+node_modules/
+
+### Bower ###
+bower_components/
