@@ -6,10 +6,8 @@ describe('Operation Controller', function() {
     beforeEach(module('managementtestApp'));
 
     beforeEach(inject(function($injector) {
-        var locals = {
-            'entity': jasmine.createSpy('MockEntity')
-        };
-        OperationController = $injector.get('$controller')('operationController', locals);
+        OperationController = $injector.get('$controller')('operationController',
+            { 'entity': jasmine.createSpy('MockEntity') });
     }));
 
     it('should be defined', function() {
