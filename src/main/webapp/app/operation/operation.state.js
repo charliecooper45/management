@@ -12,13 +12,13 @@
             .state('operations', {
                 url: '/operations',
                 templateUrl: 'app/operation/operations.html',
-                controller: 'operationsController',
+                controller: 'OperationsController',
                 controllerAs: 'vm'
             })
             .state('operation', {
                 url: '/operations/{operationId}',
                 templateUrl: 'app/operation/operation.html',
-                controller: 'operationController',
+                controller: 'OperationController',
                 controllerAs: 'vm',
                 resolve: {
                     entity: ['$stateParams', 'Operation', function($stateParams, Operation) {

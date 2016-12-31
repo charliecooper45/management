@@ -22,7 +22,7 @@ describe('Operations Controller', function() {
         spyOn(OperationFactory, 'getAll').and.callFake(function() {
             return operations;
         });
-        OperationsController = $controller('operationsController', { Operation: OperationFactory });
+        OperationsController = $controller('OperationsController', { Operation: OperationFactory });
     }));
 
     it('should be defined', function() {

@@ -3,7 +3,7 @@
 
     angular
         .module('managementtestApp')
-        .controller('operationController', OperationController);
+        .controller('OperationController', OperationController);
 
     OperationController.$inject = ['entity'];
 

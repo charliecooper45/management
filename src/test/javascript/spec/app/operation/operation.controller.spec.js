@@ -6,7 +6,7 @@ describe('Operation Controller', function() {
     beforeEach(module('managementtestApp'));
 
     beforeEach(inject(function($injector) {
-        OperationController = $injector.get('$controller')('operationController',
+        OperationController = $injector.get('$controller')('OperationController',
             { 'entity': jasmine.createSpy('MockEntity') });
     }));
 
