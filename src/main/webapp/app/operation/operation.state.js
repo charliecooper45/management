@@ -16,13 +16,13 @@
                 controllerAs: 'vm'
             })
             .state('operation', {
-                url: '/operations/{operationId}',
+                url: '/operations/{id}',
                 templateUrl: 'app/operation/operation.html',
                 controller: 'OperationController',
                 controllerAs: 'vm',
                 resolve: {
                     entity: ['$stateParams', 'Operation', function($stateParams, Operation) {
-                        return Operation.getOne($stateParams.operationId);
+                        return Operation.get({id:$stateParams.id});
                     }]
                 }
             });

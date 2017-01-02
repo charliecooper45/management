@@ -43,11 +43,21 @@ public class OperationResourceIntegrationTest {
 
     @Test
     @Transactional
-    public void testGetAllOperations() throws Exception {
-        mockMvc.perform(get("/operations"))
+    public void testGet() throws Exception {
+        mockMvc.perform(get("/api/operations"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(3)));
+    }
+
+    @Test
+    @Transactional
+    public void testGetOne() throws Exception {
+        mockMvc.perform(get("/api/operations/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.name").value("test 1"));
     }
 
 }

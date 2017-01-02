@@ -2,5 +2,8 @@
     'use strict';
 
     angular
-        .module('managementtestApp', ['ui.router']);
+        .module('managementtestApp', [
+            'ngResource',
+            'ui.router'
+        ]);
 })();

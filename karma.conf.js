@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
         'src/main/webapp/bower_components/angular/angular.js',
         'src/main/webapp/bower_components/angular-ui-router/release/angular-ui-router.js',
+        'src/main/webapp/bower_components/angular-resource/angular-resource.js',
         'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
         'src/main/webapp/app/app.module.js',
         'src/main/webapp/app/app.state.js',

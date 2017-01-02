@@ -19,7 +19,7 @@ describe('Operations Controller', function() {
         $controller = _$controller_;
         OperationFactory = _Operation_;
 
-        spyOn(OperationFactory, 'getAll').and.callFake(function() {
+        spyOn(OperationFactory, 'query').and.callFake(function() {
             return operations;
         });
         OperationsController = $controller('OperationsController', { Operation: OperationFactory });
@@ -30,7 +30,7 @@ describe('Operations Controller', function() {
     });
 
     it('should initialize with a call to Operation.getAll()', function() {
-        expect(OperationFactory.getAll).toHaveBeenCalled();
+        expect(OperationFactory.query).toHaveBeenCalled();
         expect(OperationsController.operations).toEqual(operations);
     });
 });

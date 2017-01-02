@@ -2,20 +2,6 @@
 
 describe('Operation Factory', function() {
     var Operation;
-    var operations = [
-        {
-            id: '1',
-            name: 'Test 1'
-        },
-        {
-            id: '2',
-            name: 'Test 2'
-        }
-    ];
-    var operation = {
-        id: '1',
-        name: 'Test 1'
-    };
 
     beforeEach(module('managementtestApp'));
 
@@ -27,29 +13,54 @@ describe('Operation Factory', function() {
         expect(Operation).toBeDefined();
     });
 
-    describe('.getAll()', function() {
+    describe('Restful calls', function() {
+        var $httpBackend, $rootScope;
+        var url = 'api/operations';
+        var operations = [
+            {
+                id: '1',
+                name: 'Test 1'
+            },
+            {
+                id: '2',
+                name: 'Test 2'
+            }
+        ];
+        var operation = {
+            id: '1',
+            name: 'Test 1'
+        };
 
-        it('should exist', function() {
-            expect(Operation.getAll).toBeDefined();
+        beforeEach(inject(function(_$httpBackend_, _$rootScope_) {
+            $httpBackend = _$httpBackend_;
+            $rootScope = _$rootScope_;
+            $httpBackend.whenGET(url).respond(operations);
+            $httpBackend.whenGET(url + '/1').respond(operation);
+        }));
+
+        it('should call backend to retrieve all operations', function() {
+            $httpBackend.expectGET('api/operations');
+
+            var value = Operation.query();
+            $httpBackend.flush();
+
+            expect(value.length).toEqual(2);
         });
 
-        it('should return a hard coded list of users', function() {
-            expect(Operation.getAll()).toEqual(operations);
-        });
-    });
+        it('should call backend to retrieve single operation', function() {
+            $httpBackend.expectGET('api/operations/1');
 
-    describe('.getOne()', function() {
+            var value = Operation.get({id:1});
+            $httpBackend.flush();
 
-        it('should exist', function() {
-            expect(Operation.getOne).toBeDefined();
-        });
-
-        it('should return one operation object if it exists', function() {
-            expect(Operation.getOne('1')).toEqual(operation);
+            expect(value).toBeDefined();
+            expect(value.id).toEqual('1');
+            expect(value.name).toEqual('Test 1');
         });
 
-        it('should return undefined if operation object does not exist', function() {
-            expect(Operation.getOne('3')).toBeUndefined();
+        afterEach(function() {
+            $httpBackend.verifyNoOutstandingExpectation();
+            $httpBackend.verifyNoOutstandingRequest();
         });
     });
 });

@@ -5,33 +5,11 @@
         .module('managementtestApp')
         .factory('Operation', Operation);
 
-    function Operation() {
-        var service = {
-            getAll: getAll,
-            getOne: getOne
-        }
+    Operation.$inject = ['$resource'];
 
-        return service;
+    function Operation($resource) {
+        var resourceUrl = 'api/operations/:id';
 
-        function getAll() {
-            var operations = [
-                {
-                    id: '1',
-                    name: 'Test 1'
-                },
-                {
-                    id: '2',
-                    name: 'Test 2'
-                }
-            ];
-
-            return operations;
-        }
-
-        function getOne(id) {
-            return getAll().find(function(element) {
-                return element.id === id;
-            });
-        }
+        return $resource(resourceUrl);
     }
 })();

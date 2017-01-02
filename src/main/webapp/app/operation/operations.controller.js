@@ -15,7 +15,7 @@
         loadAll();
 
         function loadAll() {
-            vm.operations = Operation.getAll();
+            vm.operations = Operation.query();
         }
     }
 })();
