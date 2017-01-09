@@ -8,12 +8,13 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('app', {
-            abstract: true,
+        $stateProvider.state('home', {
+            parent: 'app',
+            url: '/',
             views: {
-                'navbar@': {
-                    templateUrl: 'app/layouts/navbar/navbar.html',
-                    controller: 'NavbarController',
+                'content@': {
+                    templateUrl: 'app/home/home.html',
+                    controller: 'HomeController',
                     controllerAs: 'vm'
                 }
             }

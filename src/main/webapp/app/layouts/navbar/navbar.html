@@ -1,0 +1,8 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Management Application</a>
+    <ul class="nav navbar-nav navbar-right" ng-if="vm.authenticated">
+      <li><a id="signout-link" ng-click="vm.logout()">Sign Out</a></li>
+    </ul>
+  </div>
+</nav>

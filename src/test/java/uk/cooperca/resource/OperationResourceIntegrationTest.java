@@ -37,7 +37,7 @@ public class OperationResourceIntegrationTest {
         mockMvc = MockMvcBuilders.standaloneSetup(operationResource).build();
 
         // create an operation
-        Operation operation = new OperationBuilder().setName("Test One").createOperation();
+        Operation operation = new OperationBuilder().name("Test One").build();
         operationRepository.saveAndFlush(operation);
     }
 

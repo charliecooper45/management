@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Rest controller for Operations.
+ * Rest controller for {@link Operation}s.
  *
  * @author Charlie Cooper
  */

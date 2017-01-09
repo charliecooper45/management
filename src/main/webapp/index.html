@@ -10,17 +10,31 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/app.state.js"></script>
-    <script src="app/operation/operations.controller.js"></script>
-    <script src="app/operation/operation.controller.js"></script>
+    <script src="app/layouts/navbar/navbar.controller.js"></script>
+    <script src="app/auth/auth.state.js"></script>
+    <script src="app/auth/login.service.js"></script>
+    <script src="app/auth/login.controller.js"></script>
+    <script src="app/home/home.state.js"></script>
+    <script src="app/home/home.controller.js"></script>
     <script src="app/operation/operation.state.js"></script>
     <script src="app/operation/operation.service.js"></script>
+    <script src="app/operation/operations.controller.js"></script>
+    <script src="app/operation/operation.controller.js"></script>
 
     <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
   </head>
   <body ng-app="managementtestApp" ng-strict-di>
-    <a ui-sref="operations" ui-sref-active="active">Operations</a>
-    <ui-view></ui-view>
+
+    <div ui-view="navbar" ng-cloak></div>
+
+    <div ui-view="content"></div>
+
   </body>
 </html>

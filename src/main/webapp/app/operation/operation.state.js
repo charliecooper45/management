@@ -10,16 +10,26 @@
     function stateConfig($stateProvider) {
         $stateProvider
             .state('operations', {
+                parent: 'app',
                 url: '/operations',
-                templateUrl: 'app/operation/operations.html',
-                controller: 'OperationsController',
-                controllerAs: 'vm'
+                views: {
+                    'content@': {
+                        templateUrl: 'app/operation/operations.html',
+                        controller: 'OperationsController',
+                        controllerAs: 'vm'
+                    }
+                }
             })
             .state('operation', {
+                parent: 'app',
                 url: '/operations/{id}',
-                templateUrl: 'app/operation/operation.html',
-                controller: 'OperationController',
-                controllerAs: 'vm',
+                views: {
+                    'content@': {
+                        templateUrl: 'app/operation/operation.html',
+                        controller: 'OperationController',
+                        controllerAs: 'vm',
+                    }
+                },
                 resolve: {
                     entity: ['$stateParams', 'Operation', function($stateParams, Operation) {
                         return Operation.get({id:$stateParams.id});
