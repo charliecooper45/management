@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('managementtestApp')
+        .module('managementApp')
         .controller('NavbarController', NavbarController);
 
     NavbarController.$inject = ['$localStorage', '$state'];

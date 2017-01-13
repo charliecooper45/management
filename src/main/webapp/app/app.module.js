@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('managementtestApp', [
+        .module('managementApp', [
             'ngResource',
             'ui.router',
             'ngStorage'
@@ -12,6 +12,7 @@
         run.$inject = ['$rootScope', '$location', '$state', '$localStorage', '$http'];
 
         function run($rootScope, $location, $state, $localStorage, $http) {
+            // TODO: this could be replaced with an $http interceptor
             $rootScope.$on('$locationChangeStart', function () {
                 if ($location.path() !== "/login" && !$localStorage.token) {
                     $state.go("login");

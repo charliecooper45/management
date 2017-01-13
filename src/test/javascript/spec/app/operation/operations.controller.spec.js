@@ -13,7 +13,7 @@ describe('Operations Controller', function() {
         }
     ];
 
-    beforeEach(module('managementtestApp'));
+    beforeEach(module('managementApp'));
 
     beforeEach(inject(function(_$controller_, _Operation_) {
         $controller = _$controller_;

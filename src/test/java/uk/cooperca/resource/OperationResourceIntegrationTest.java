@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import uk.cooperca.ManagementTestApplication;
+import uk.cooperca.ManagementApplication;
 import uk.cooperca.entity.Operation;
 import uk.cooperca.entity.OperationBuilder;
 import uk.cooperca.repository.OperationRepository;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ManagementTestApplication.class)
+@SpringBootTest(classes = ManagementApplication.class)
 public class OperationResourceIntegrationTest {
 
     private MockMvc mockMvc;

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('managementtestApp')
+        .module('managementApp')
         .controller('LoginController', LoginController);
 
     LoginController.$inject = ['Login', '$localStorage', '$state', '$http'];

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('managementtestApp')
+        .module('managementApp')
         .controller('OperationsController', OperationsController);
 
     OperationsController.$inject = ['Operation'];
