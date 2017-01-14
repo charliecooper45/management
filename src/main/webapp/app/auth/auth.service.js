@@ -9,13 +9,18 @@
 
     function Auth ($http, $sessionStorage, $state) {
         var service = {
+            token: token,
             authorize: authorize,
             login: login,
             logout: logout,
-            isAuthenticated: isAuthenticated
+            isAuthenticated: isAuthenticated,
         };
 
         return service;
+
+        function token() {
+            return $sessionStorage.token;
+        }
 
         function authorize(event, toState) {
             if (!isAuthenticated() && toState.name !== 'login') {
@@ -38,22 +43,16 @@
         }
 
         function logout() {
-            delete $sessionStorage.token;
+            delete token();
             $state.go("login", {}, {reload: true});
         }
 
         function isAuthenticated() {
-            var token = retrieveToken();
-            return angular.isDefined(token);
+            return angular.isDefined(token());
         }
 
         function storeToken(token) {
             $sessionStorage.token = token;
-            $http.defaults.headers.common.Authorization = 'Bearer ' + token;
-        }
-
-        function retrieveToken() {
-            return $sessionStorage.token;
         }
     }
 })();
