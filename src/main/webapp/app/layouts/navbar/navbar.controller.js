@@ -5,9 +5,9 @@
         .module('managementApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$localStorage', '$state'];
+    NavbarController.$inject = ['Auth'];
 
-    function NavbarController($localStorage, $state) {
+    function NavbarController(Auth) {
         var vm = this;
 
         vm.logout = logout;
@@ -15,16 +15,11 @@
         checkAuthentication();
 
         function checkAuthentication() {
-            if($localStorage.token) {
-                vm.authenticated = true;
-            } else {
-                vm.authenticated = false;
-            }
+            vm.authenticated = Auth.isAuthenticated();
         }
 
         function logout() {
-            delete $localStorage.token;
-            $state.go("login", {}, {reload: true});
+            Auth.logout();
         }
     }
 })();

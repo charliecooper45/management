@@ -36,14 +36,10 @@ describe('Operation Factory', function() {
             $rootScope = _$rootScope_;
             $httpBackend.whenGET(url).respond(operations);
             $httpBackend.whenGET(url + '/1').respond(operation);
-            $httpBackend.whenGET('app/layouts/navbar/navbar.html').respond('');
-            $httpBackend.whenGET('app/auth/login.html').respond('');
         }));
 
         it('should call backend to retrieve all operations', function() {
             $httpBackend.expectGET('api/operations');
-            $httpBackend.expectGET('app/layouts/navbar/navbar.html');
-            $httpBackend.expectGET('app/auth/login.html');
 
             var value = Operation.query();
             $httpBackend.flush();
@@ -53,8 +49,6 @@ describe('Operation Factory', function() {
 
         it('should call backend to retrieve single operation', function() {
             $httpBackend.expectGET('api/operations/1');
-            $httpBackend.expectGET('app/layouts/navbar/navbar.html');
-            $httpBackend.expectGET('app/auth/login.html');
 
             var value = Operation.get({id:1});
             $httpBackend.flush();

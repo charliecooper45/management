@@ -9,16 +9,17 @@
         ])
         .run(run);
 
-        run.$inject = ['$rootScope', '$location', '$state', '$localStorage', '$http'];
+    run.$inject = ['$rootScope', 'Auth'];
 
-        function run($rootScope, $location, $state, $localStorage, $http) {
-            // TODO: this could be replaced with an $http interceptor
-            $rootScope.$on('$locationChangeStart', function () {
-                if ($location.path() !== "/login" && !$localStorage.token) {
-                    $state.go("login");
-                } else if ($location.path() !== "/login") {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
-                }
-            });
-        }
+    function run($rootScope, Auth) {
+        var stateChangeStart = $rootScope.$on('$stateChangeStart', function (event, toState) {
+            return Auth.authorize(event, toState);
+        });
+
+        $rootScope.$on('$destroy', function () {
+            if(angular.isDefined(stateChangeStart) && stateChangeStart !== null) {
+                stateChangeStart();
+            }
+        });
+    }
 })();
