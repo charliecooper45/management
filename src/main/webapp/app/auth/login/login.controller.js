@@ -15,7 +15,7 @@
         function login() {
             Auth.login(vm.username, vm.password)
                 .then(function() {
-                    $state.go("home", {}, {reload: true});
+                    $state.go('home', {}, {reload: true});
                 }).catch(function() {
                     console.log('failure logging in!');
                 });

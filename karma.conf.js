@@ -23,9 +23,7 @@ module.exports = function(config) {
         'src/main/webapp/app/app.module.js',
         'src/main/webapp/app/app.state.js',
         'src/main/webapp/app/**/*.+(js|html)',
-        './src/test/javascript/spec/app/operation/operation.service.spec.js',
-        './src/test/javascript/spec/app/operation/operations.controller.spec.js',
-        './src/test/javascript/spec/app/operation/operation.controller.spec.js'
+        'src/test/javascript/spec/app/**/*.js'
     ],
 
 
