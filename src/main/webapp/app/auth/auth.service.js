@@ -23,10 +23,18 @@
         }
 
         function authorize(event, toState) {
-            if (!isAuthenticated() && toState.name !== 'login') {
-                event.preventDefault();
-                $state.go('login');
+            if (toState.name === 'login') {
+                if (isAuthenticated()) {
+                    goToState(event, 'home');
+                }
+            } else if (!isAuthenticated()) {
+                goToState(event, 'login');
             }
+        }
+
+        function goToState(event, stateName) {
+            event.preventDefault();
+            $state.go(stateName);
         }
 
         function login(username, password) {
@@ -43,7 +51,7 @@
         }
 
         function logout() {
-            delete token();
+            delete $sessionStorage.token;
             $state.go("login", {}, {reload: true});
         }
 

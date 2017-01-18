@@ -17,7 +17,7 @@
                 .then(function() {
                     $state.go('home', {}, {reload: true});
                 }).catch(function() {
-                    console.log('failure logging in!');
+                    // TODO
                 });
         }
     }
