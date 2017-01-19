@@ -75,7 +75,7 @@ public class TokenFilterTest {
     public void testExpiredToken() throws Exception {
         String testToken = "test-invalid-token";
         when(request.getHeader(AUTHORIZATION)).thenReturn(BEARER + testToken);
-        when(provider.validateToken(testToken)).thenThrow(ExpiredJwtException.class);
+        when(provider.validateToken(testToken)).thenThrow(mock(ExpiredJwtException.class));
 
         filter.doFilter(request, response, filterChain);
 
