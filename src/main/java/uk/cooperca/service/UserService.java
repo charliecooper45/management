@@ -1,7 +1,6 @@
 package uk.cooperca.service;
 
 import org.springframework.stereotype.Service;
-import uk.cooperca.dto.LoginCredentials;
 import uk.cooperca.entity.User;
 import uk.cooperca.entity.UserBuilder;
 
@@ -32,14 +31,6 @@ public class UserService {
                 .username("test")
                 .password("test")
                 .build());
-    }
-
-    public Optional<User> login(LoginCredentials credentials) {
-        User user = DB.get(credentials.getUsername());
-        if (user != null && user.getPassword().equals(credentials.getPassword())) {
-            return Optional.of(user);
-        }
-        return Optional.empty();
     }
 
     public Optional<User> getUser(String username) {

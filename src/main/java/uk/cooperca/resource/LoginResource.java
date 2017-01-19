@@ -3,44 +3,49 @@ package uk.cooperca.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.cooperca.dto.LoginCredentials;
-import uk.cooperca.entity.User;
-import uk.cooperca.auth.JwtService;
-import uk.cooperca.service.UserService;
+import uk.cooperca.auth.token.TokenProvider;
+import uk.cooperca.dto.CredentialsDTO;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
+
+import static java.util.Collections.singletonMap;
 
 /**
  * Rest controller for logging users in.
  *
  * @author Charlie Cooper
  */
-// TODO: tests
 @RestController
 @RequestMapping("/api/login")
 public class LoginResource {
 
-    @Autowired
-    private UserService userService;
+    public static final String TOKEN = "Token";
 
     @Autowired
-    public JwtService jwtService;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @PostMapping
-    public ResponseEntity<User> login(@RequestBody LoginCredentials credentials,
-                                      HttpServletResponse response) {
-        Optional<User> optional = userService.login(credentials);
-        if (optional.isPresent()) {
-            User user = optional.get();
-            response.setHeader("Token", jwtService.generateToken(user.getUsername()));
-            return ResponseEntity.ok(user);
+    public ResponseEntity login(@RequestBody CredentialsDTO credentials,
+                                HttpServletResponse response) {
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            response.setHeader(TOKEN, tokenProvider.generateToken(authentication));
+            return ResponseEntity.ok().build();
+        } catch (AuthenticationException exception) {
+            return new ResponseEntity<>(singletonMap("AuthenticationException", exception.getLocalizedMessage()), HttpStatus.UNAUTHORIZED);
         }
-        // TODO: message
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
