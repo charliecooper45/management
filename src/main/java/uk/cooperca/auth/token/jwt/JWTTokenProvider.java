@@ -3,12 +3,14 @@ package uk.cooperca.auth.token.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import uk.cooperca.auth.token.TokenProvider;
+import uk.cooperca.config.properties.ManagementProperties;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import java.util.*;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 import static java.time.ZoneOffset.UTC;
+import static java.util.UUID.randomUUID;
 import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
 
 /**
@@ -26,15 +29,17 @@ import static org.springframework.security.core.authority.AuthorityUtils.createA
 @Component
 public class JWTTokenProvider implements TokenProvider {
 
-    private String key;
+    @Autowired
+    private ManagementProperties managementProperties;
 
+    private String key;
     private int tokenValidity;
 
     @PostConstruct
     public void init() {
-        // TODO: on restart invalidate all sessions
-        key = "very_secret";
-        tokenValidity = 120;
+        // upon restart we invalidate all sessions
+        key = randomUUID().toString();
+        tokenValidity = managementProperties.getSecurity().getToken().getTokenValidity();
     }
 
     public String generateToken(Authentication authentication) {
