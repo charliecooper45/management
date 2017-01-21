@@ -5,21 +5,8 @@
         .module('managementApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['Auth'];
-
-    function NavbarController(Auth) {
+    function NavbarController() {
         var vm = this;
 
-        vm.logout = logout;
-
-        checkAuthentication();
-
-        function checkAuthentication() {
-            vm.authenticated = Auth.isAuthenticated();
-        }
-
-        function logout() {
-            Auth.logout();
-        }
     }
 })();

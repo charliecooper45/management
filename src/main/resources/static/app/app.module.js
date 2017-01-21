@@ -5,7 +5,8 @@
         .module('managementApp', [
             'ngResource',
             'ui.router',
-            'ngStorage'
+            'ngStorage',
+            'ui.bootstrap'
         ])
         .run(run);
 

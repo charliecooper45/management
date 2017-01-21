@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>management-test</title>
+    <title>management</title>
     <meta name="description" content="Management Application">
     <meta name="viewport" content="width=device-width">
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/app.state.js"></script>
     <script src="app/blocks/config/http.config.js"></script>
     <script src="app/blocks/interceptor/auth.interceptor.js"></script>
+    <script src="app/layouts/header/header.controller.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/auth/auth.service.js"></script>
     <script src="app/auth/login/login.state.js"></script>
@@ -28,14 +28,17 @@
     <script src="app/operation/operation.controller.js"></script>
 
     <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
   </head>
   <body ng-app="managementApp" ng-strict-di>
 
+    <div ui-view="header" ng-cloak></div>
     <div ui-view="navbar" ng-cloak></div>
 
-    <div ui-view="content"></div>
+
+        <div ui-view="content"></div>
+      </div>
+    </div>
 
   </body>
 </html>

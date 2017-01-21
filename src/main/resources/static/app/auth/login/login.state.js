@@ -10,7 +10,6 @@
     function stateConfig($stateProvider) {
         $stateProvider
             .state('login', {
-                parent: 'app',
                 url: '/login',
                 views: {
                     'content@': {
