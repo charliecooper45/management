@@ -2,6 +2,10 @@
     margin-top: 20%;
 }
 
+.login-box .form-text {
+    color: darkred;
+}
+
 #signout-link {
     cursor: pointer;
     float: right;

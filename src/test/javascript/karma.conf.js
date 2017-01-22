@@ -19,6 +19,7 @@ module.exports = function(config) {
         'src/main/resources/static/bower_components/angular-ui-router/release/angular-ui-router.js',
         'src/main/resources/static/bower_components/angular-resource/angular-resource.js',
         'src/main/resources/static/bower_components/ngstorage/ngStorage.js',
+        'src/main/resources/static/bower_components/angular-bootstrap/ui-bootstrap.js',
         'src/main/resources/static/bower_components/angular-mocks/angular-mocks.js',
         'src/main/resources/static/app/app.module.js',
         'src/main/resources/static/app/app.state.js',
