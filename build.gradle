@@ -40,6 +40,8 @@ repositories {
 
 dependencies {
 	compile('com.h2database:h2')
+	compile('org.postgresql:postgresql')
+	compile('com.zaxxer:HikariCP:2.5.1')
 	compile('io.jsonwebtoken:jjwt:0.7.0')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-security')

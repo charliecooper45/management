@@ -27,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/login",
             "/bower_components/**/*",
             "/app/**/*",
-            "/resources/**/*"
+            "/resources/**/*",
+            "/h2-console/**"
     };
 
     @Override
