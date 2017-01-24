@@ -3,6 +3,8 @@ package uk.cooperca.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * An operation performed by the application.
  *
@@ -15,7 +17,8 @@ public class Operation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = SEQUENCE, generator="operation_id_seq")
+    @SequenceGenerator(name = "operation_id_seq", sequenceName = "operation_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")

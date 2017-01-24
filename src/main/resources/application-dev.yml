@@ -7,6 +7,9 @@ spring:
         url: jdbc:h2:mem:management;DB_CLOSE_DELAY=-1
         username: management
         password: management
+    jpa:
+        show-sql: true
+        hibernate.ddl-auto: validate
 
 management-app:
     security:

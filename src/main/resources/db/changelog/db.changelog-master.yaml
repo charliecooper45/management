@@ -1,0 +1,29 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: charlie
+        changes:
+            - createTable:
+                tableName: operation
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(50)
+    - changeSet:
+        id: 2
+        author: charlie
+        preConditions:
+            onFail: MARK_RAN
+            not:
+                dbms:
+                    type: postgresql
+        changes:
+            - createSequence:
+                sequenceName: operation_id_seq
