@@ -28,7 +28,7 @@ public class Operation implements Serializable {
         // for Hibernate
     }
 
-    Operation(String name) {
+    public Operation(String name) {
         this.name = name;
     }
 

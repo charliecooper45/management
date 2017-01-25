@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
 import uk.cooperca.auth.token.TokenProvider;
 import uk.cooperca.dto.CredentialsDTO;
+import uk.cooperca.entity.UserBuilder;
+import uk.cooperca.repository.UserRepository;
 
 import javax.transaction.Transactional;
 
@@ -31,6 +33,9 @@ import static uk.cooperca.resource.LoginResource.TOKEN;
 public class LoginResourceIntegrationTest {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -40,6 +45,7 @@ public class LoginResourceIntegrationTest {
 
     @Before
     public void setup() {
+        userRepository.saveAndFlush(new UserBuilder().username("test").password("$2a$04$to.4OJE6NImC0jxpOK7eu.MbrQQ/aEZu0j52M2W0OPpFc.fYdW8wW").build());
         LoginResource loginResource = new LoginResource();
         ReflectionTestUtils.setField(loginResource, "authenticationManager", authenticationManager);
         ReflectionTestUtils.setField(loginResource, "tokenProvider", tokenProvider);
@@ -51,7 +57,7 @@ public class LoginResourceIntegrationTest {
     public void testSuccessfulLogin() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createBody("greenrabbit948", "celeste")))
+                .content(createBody("test", "test")))
                 .andExpect(status().isOk())
                 .andExpect(header().string(TOKEN, notNullValue()));
     }
@@ -61,7 +67,13 @@ public class LoginResourceIntegrationTest {
     public void testFailedLogin() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createBody("greenrabbit948", "celeste2")))
+                .content(createBody("greenrabbit948", "test")))
+                .andExpect(status().isUnauthorized())
+                .andExpect(header().string(TOKEN, nullValue()));
+
+        mockMvc.perform(post("/api/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createBody("test", "celeste2")))
                 .andExpect(status().isUnauthorized())
                 .andExpect(header().string(TOKEN, nullValue()));
     }

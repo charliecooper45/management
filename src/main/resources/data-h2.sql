@@ -1,1 +1,0 @@
-INSERT INTO operation (name) VALUES ('test 1'), ('test 2');

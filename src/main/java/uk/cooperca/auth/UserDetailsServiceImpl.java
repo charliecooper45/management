@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userService.getUser(username)
+        return userService.findOneByUsername(username)
                 .map(user -> new User(user.getUsername(), user.getPassword(), createAuthorityList("ROLE_USER")))
                 .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
     }

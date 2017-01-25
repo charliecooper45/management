@@ -1,8 +1,32 @@
 databaseChangeLog:
     - changeSet:
-        id: 1
+        id: 1-create_tables
         author: charlie
         changes:
+            - createSequence:
+                sequenceName: user_id_seq
+            - createTable:
+                tableName: user
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        defaultValueSequenceNext: user_id_seq
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: username
+                        type: varchar(50)
+                    - column:
+                        name: password
+                        type: varchar(255)
+                    - column:
+                        name: first_name
+                        type: varchar(50)
+                    - column:
+                        name: last_name
+                        type: varchar(50)
             - createSequence:
                 sequenceName: operation_id_seq
             - createTable:
@@ -18,4 +42,17 @@ databaseChangeLog:
                     - column:
                         name: name
                         type: varchar(50)
+    - changeSet:
+        id: 2-load_data_dev
+        author: charlie
+        preConditions:
+            onFail: MARK_RAN
+            dbms:
+                type: h2
+        changes:
+            - loadData:
+                tableName: user
+                file: db/users.csv
+                separator: ;
+
 

@@ -1,11 +1,10 @@
 package uk.cooperca.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.cooperca.entity.User;
-import uk.cooperca.entity.UserBuilder;
+import uk.cooperca.repository.UserRepository;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -16,28 +15,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private static final Map<String, User> DB = new HashMap<>();
+    @Autowired
+    private UserRepository userRepository;
 
-    static {
-        DB.put("greenrabbit948", new UserBuilder()
-                .firstName("Fred")
-                .lastName("Smith")
-                .username("greenrabbit948")
-                .password("celeste")
-                .build());
-        DB.put("test", new UserBuilder()
-                .firstName("Test")
-                .lastName("Test")
-                .username("test")
-                .password("test")
-                .build());
-    }
-
-    public Optional<User> getUser(String username) {
-        User user = DB.get(username);
-        if (user != null) {
-            return Optional.of(user);
-        }
-        return Optional.empty();
+    public Optional<User> findOneByUsername(String username) {
+        return userRepository.findOneByUsername(username);
     }
 }
