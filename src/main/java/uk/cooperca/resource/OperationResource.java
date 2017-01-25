@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.cooperca.entity.Operation;
-import uk.cooperca.repository.OperationRepository;
+import uk.cooperca.service.OperationService;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,17 +24,17 @@ import java.util.Optional;
 public class OperationResource {
 
     @Autowired
-    private OperationRepository operationRepository;
+    private OperationService operationService;
 
     @GetMapping
     public ResponseEntity<List<Operation>> getAll() {
-        List<Operation> operations = operationRepository.findAll();
+        List<Operation> operations = operationService.findAll();
         return new ResponseEntity<>(operations, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Operation> getOne(@PathVariable Long id) {
-        Operation operation = operationRepository.findOne(id);
+        Operation operation = operationService.findOne(id);
         return Optional.ofNullable(operation)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

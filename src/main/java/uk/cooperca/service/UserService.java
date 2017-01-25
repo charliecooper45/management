@@ -8,7 +8,7 @@ import uk.cooperca.repository.UserRepository;
 import java.util.Optional;
 
 /**
- * Service for managing user login requests.
+ * Service for {@link User}s.
  *
  * @author Charlie Cooper
  */

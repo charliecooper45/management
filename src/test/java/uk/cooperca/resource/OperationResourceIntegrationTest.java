@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
 import uk.cooperca.entity.OperationBuilder;
 import uk.cooperca.repository.OperationRepository;
+import uk.cooperca.service.OperationService;
 
 import javax.transaction.Transactional;
 
@@ -32,6 +33,9 @@ public class OperationResourceIntegrationTest {
     @Autowired
     private OperationRepository operationRepository;
 
+    @Autowired
+    private OperationService operationService;
+
     @Before
     public void setup() {
         // create operations
@@ -40,7 +44,7 @@ public class OperationResourceIntegrationTest {
         operationRepository.saveAndFlush(new OperationBuilder().name("Test Three").build());
 
         OperationResource operationResource = new OperationResource();
-        ReflectionTestUtils.setField(operationResource, "operationRepository", operationRepository);
+        ReflectionTestUtils.setField(operationResource, "operationService", operationService);
         mockMvc = MockMvcBuilders.standaloneSetup(operationResource).build();
     }
 
