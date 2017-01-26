@@ -1,7 +1,11 @@
-package uk.cooperca.entity;
+package uk.cooperca.entity.builder;
+
+import uk.cooperca.entity.User;
 
 /**
  * Builder for the {@link User} class.
+ *
+ * @author Charlie Cooper
  */
 public class UserBuilder {
 

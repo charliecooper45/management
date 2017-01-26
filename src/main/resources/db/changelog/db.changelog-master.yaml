@@ -18,12 +18,19 @@ databaseChangeLog:
                     - column:
                         name: username
                         type: varchar(50)
+                        constraints:
+                            nullable: false
+                            unique: true
                     - column:
                         name: password
-                        type: varchar(255)
+                        type: varchar(60)
+                        constraints:
+                            nullable: false
                     - column:
                         name: first_name
                         type: varchar(50)
+                        constraints:
+                            nullable: false
                     - column:
                         name: last_name
                         type: varchar(50)
@@ -42,8 +49,144 @@ databaseChangeLog:
                     - column:
                         name: name
                         type: varchar(50)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: application_id
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: script_id
+                        type: bigint
+                        constraints:
+                            nullable: false
+            - createSequence:
+                sequenceName: application_id_seq
+            - createTable:
+                tableName: application
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        defaultValueSequenceNext: application_id_seq
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(50)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: description
+                        type: varchar(500)
+            - createSequence:
+                sequenceName: server_id_seq
+            - createTable:
+                tableName: server
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        defaultValueSequenceNext: server_id_seq
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(50)
+                        constraints:
+                            nullable: false
+            - createSequence:
+                sequenceName: path_id_seq
+            - createTable:
+                tableName: script
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        defaultValueSequenceNext: path_id_seq
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: path
+                        type: varchar(500)
+            - createSequence:
+                    sequenceName: execution_id_seq
+            - createTable:
+                tableName: execution
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        defaultValueSequenceNext: execution_id_seq
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: start_time
+                        type: timestamp
+                    - column:
+                        name: finish_time
+                        type: timestamp
+                    - column:
+                        name: operation_id
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: user_id
+                        type: bigint
+                        constraints:
+                            nullable: false
     - changeSet:
-        id: 2-load_data_dev
+        id: 2-add_foreign_keys
+        author: charlie
+        changes:
+            - createTable:
+                tableName: server_application
+                columns:
+                    - column:
+                        name: server_id
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: application_id
+                        type: bigint
+                        constraints:
+                            nullable: false
+            - addPrimaryKey:
+                tableName: server_application
+                columnNames: server_id, application_id
+            - addForeignKeyConstraint:
+                baseColumnNames: application_id
+                baseTableName: operation
+                constraintName: fk_operation_application
+                referencedColumnNames: id
+                referencedTableName: application
+            - addForeignKeyConstraint:
+                baseColumnNames: script_id
+                baseTableName: operation
+                constraintName: fk_operation_script
+                referencedColumnNames: id
+                referencedTableName: script
+            - addForeignKeyConstraint:
+                baseColumnNames: operation_id
+                baseTableName: execution
+                constraintName: fk_execution_operation
+                referencedColumnNames: id
+                referencedTableName: operation
+            - addForeignKeyConstraint:
+                baseColumnNames: user_id
+                baseTableName: execution
+                constraintName: fk_execution_user
+                referencedColumnNames: id
+                referencedTableName: user
+    - changeSet:
+        id: 3-load_data_dev
         author: charlie
         preConditions:
             onFail: MARK_RAN

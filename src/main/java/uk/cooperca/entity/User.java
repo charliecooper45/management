@@ -1,7 +1,11 @@
 package uk.cooperca.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -21,17 +25,27 @@ public class User implements Serializable {
     @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @NotNull
+    @Size(min = 4, max = 50)
+    @Column(name = "username", unique = true)
     private String username;
 
+    @NotNull
+    @Size(min = 60, max = 60)
     @Column(name = "password")
     private String password;
 
+    @NotNull
+    @Size(max = 50)
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
+    @Size(max = 50)
     private String lastName;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Execution> executions = new HashSet<>();
 
     private User() {
         // for Hibernate
@@ -58,5 +72,9 @@ public class User implements Serializable {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Set<Execution> getExecutions() {
+        return executions;
     }
 }

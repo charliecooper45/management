@@ -12,8 +12,14 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
-import uk.cooperca.entity.OperationBuilder;
+import uk.cooperca.entity.Application;
+import uk.cooperca.entity.Script;
+import uk.cooperca.entity.builder.ApplicationBuilder;
+import uk.cooperca.entity.builder.OperationBuilder;
+import uk.cooperca.entity.builder.ScriptBuilder;
+import uk.cooperca.repository.ApplicationRepository;
 import uk.cooperca.repository.OperationRepository;
+import uk.cooperca.repository.ScriptRepository;
 import uk.cooperca.service.OperationService;
 
 import javax.transaction.Transactional;
@@ -34,14 +40,22 @@ public class OperationResourceIntegrationTest {
     private OperationRepository operationRepository;
 
     @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private ScriptRepository scriptRepository;
+
+    @Autowired
     private OperationService operationService;
 
     @Before
     public void setup() {
         // create operations
-        operationRepository.saveAndFlush(new OperationBuilder().name("Test One").build());
-        operationRepository.saveAndFlush(new OperationBuilder().name("Test Two").build());
-        operationRepository.saveAndFlush(new OperationBuilder().name("Test Three").build());
+        Application application = applicationRepository.saveAndFlush(new ApplicationBuilder().name("Test Application").build());
+        Script script = scriptRepository.saveAndFlush(new ScriptBuilder().path("/tmp/script.sh").build());
+        operationRepository.saveAndFlush(new OperationBuilder().name("Test One").application(application).script(script).build());
+        operationRepository.saveAndFlush(new OperationBuilder().name("Test Two").application(application).script(script).build());
+        operationRepository.saveAndFlush(new OperationBuilder().name("Test Three").application(application).script(script).build());
 
         OperationResource operationResource = new OperationResource();
         ReflectionTestUtils.setField(operationResource, "operationService", operationService);

@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
 import uk.cooperca.auth.token.TokenProvider;
 import uk.cooperca.dto.CredentialsDTO;
-import uk.cooperca.entity.UserBuilder;
+import uk.cooperca.entity.builder.UserBuilder;
 import uk.cooperca.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -45,7 +45,13 @@ public class LoginResourceIntegrationTest {
 
     @Before
     public void setup() {
-        userRepository.saveAndFlush(new UserBuilder().username("test").password("$2a$04$to.4OJE6NImC0jxpOK7eu.MbrQQ/aEZu0j52M2W0OPpFc.fYdW8wW").build());
+        userRepository.saveAndFlush(
+                new UserBuilder()
+                        .username("test")
+                        .password("$2a$04$to.4OJE6NImC0jxpOK7eu.MbrQQ/aEZu0j52M2W0OPpFc.fYdW8wW")
+                        .firstName("test")
+                        .build()
+        );
         LoginResource loginResource = new LoginResource();
         ReflectionTestUtils.setField(loginResource, "authenticationManager", authenticationManager);
         ReflectionTestUtils.setField(loginResource, "tokenProvider", tokenProvider);
