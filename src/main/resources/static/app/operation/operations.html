@@ -5,7 +5,6 @@
         <h3 class="panel-title">Operations</h3>
       </div>
       <div class="panel-body">
-        <h2>Operations:</h2>
         <p ng-repeat="operation in vm.operations">
           <a ui-sref="operation({ id: operation.id })">{{operation.name}}</a>
         </p>

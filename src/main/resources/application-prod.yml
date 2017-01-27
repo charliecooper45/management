@@ -16,3 +16,4 @@ management-app:
     security:
         token:
             tokenValidity: 1800
+            generateOnRestart: true

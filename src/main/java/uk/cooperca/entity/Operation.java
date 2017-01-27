@@ -1,5 +1,7 @@
 package uk.cooperca.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -28,14 +30,17 @@ public class Operation implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @NotNull
     @ManyToOne
     private Application application;
 
+    @JsonIgnore
     @NotNull
     @ManyToOne
     private Script script;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "operation")
     private Set<Execution> executions = new HashSet<>();
 

@@ -195,7 +195,18 @@ databaseChangeLog:
         changes:
             - loadData:
                 tableName: user
-                file: db/users.csv
+                file: db/user.csv
                 separator: ;
-
+            - loadData:
+                tableName: application
+                file: db/application.csv
+                separator: ;
+            - loadData:
+                tableName: script
+                file: db/script.csv
+                separator: ;
+            - loadData:
+                tableName: operation
+                file: db/operation.csv
+                separator: ;
 

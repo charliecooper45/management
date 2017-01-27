@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
 import uk.cooperca.auth.token.TokenProvider;
 import uk.cooperca.dto.CredentialsDTO;
-import uk.cooperca.entity.builder.UserBuilder;
 import uk.cooperca.repository.UserRepository;
 
 import javax.transaction.Transactional;
@@ -30,10 +30,8 @@ import static uk.cooperca.resource.LoginResource.TOKEN;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ManagementApplication.class)
+@ActiveProfiles("test")
 public class LoginResourceIntegrationTest {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -45,13 +43,6 @@ public class LoginResourceIntegrationTest {
 
     @Before
     public void setup() {
-        userRepository.saveAndFlush(
-                new UserBuilder()
-                        .username("test")
-                        .password("$2a$04$to.4OJE6NImC0jxpOK7eu.MbrQQ/aEZu0j52M2W0OPpFc.fYdW8wW")
-                        .firstName("test")
-                        .build()
-        );
         LoginResource loginResource = new LoginResource();
         ReflectionTestUtils.setField(loginResource, "authenticationManager", authenticationManager);
         ReflectionTestUtils.setField(loginResource, "tokenProvider", tokenProvider);
@@ -63,7 +54,7 @@ public class LoginResourceIntegrationTest {
     public void testSuccessfulLogin() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createBody("test", "test")))
+                .content(createBody("charliec", "test")))
                 .andExpect(status().isOk())
                 .andExpect(header().string(TOKEN, notNullValue()));
     }
@@ -79,7 +70,7 @@ public class LoginResourceIntegrationTest {
 
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createBody("test", "celeste2")))
+                .content(createBody("charliec", "celeste2")))
                 .andExpect(status().isUnauthorized())
                 .andExpect(header().string(TOKEN, nullValue()));
     }

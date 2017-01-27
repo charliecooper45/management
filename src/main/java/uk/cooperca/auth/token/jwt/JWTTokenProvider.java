@@ -37,8 +37,11 @@ public class JWTTokenProvider implements TokenProvider {
 
     @PostConstruct
     public void init() {
-        // upon restart we invalidate all sessions
-        key = randomUUID().toString();
+        if (managementProperties.getSecurity().getToken().isGenerateOnRestart()) {
+            key = randomUUID().toString();
+        } else {
+            key = managementProperties.getSecurity().getToken().getToken();
+        }
         tokenValidity = managementProperties.getSecurity().getToken().getTokenValidity();
     }
 

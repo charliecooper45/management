@@ -29,6 +29,8 @@ public class ManagementProperties {
         public static class Token {
 
             private int tokenValidity;
+            private boolean generateOnRestart;
+            private String token;
 
             public int getTokenValidity() {
                 return tokenValidity;
@@ -36,6 +38,22 @@ public class ManagementProperties {
 
             public void setTokenValidity(int tokenValidity) {
                 this.tokenValidity = tokenValidity;
+            }
+
+            public boolean isGenerateOnRestart() {
+                return generateOnRestart;
+            }
+
+            public void setGenerateOnRestart(boolean generateOnRestart) {
+                this.generateOnRestart = generateOnRestart;
+            }
+
+            public String getToken() {
+                return token;
+            }
+
+            public void setToken(String token) {
+                this.token = token;
             }
         }
     }
