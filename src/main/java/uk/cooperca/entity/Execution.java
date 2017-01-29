@@ -23,10 +23,10 @@ public class Execution implements Serializable {
     @SequenceGenerator(name = "execution_id_seq", sequenceName = "execution_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name="start_time", columnDefinition = "timestamp")
+    @Column(name="start_time")
     private LocalDateTime startTime;
 
-    @Column(name="finish_time", columnDefinition = "timestamp")
+    @Column(name="finish_time")
     private LocalDateTime finishTime;
 
     @NotNull
