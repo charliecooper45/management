@@ -7,16 +7,24 @@ import uk.cooperca.entity.Server;
  *
  * @author Charlie Cooper
  */
-public class ServerBuilder {
+public class ServerBuilder extends AbstractBuilder<Server> {
 
     private String name;
+
+    public ServerBuilder() {}
+
+    public ServerBuilder(Server server) {
+        super(server);
+        this.name = server.getName();
+    }
 
     public ServerBuilder name(String name) {
         this.name = name;
         return this;
     }
 
+    @Override
     public Server build() {
-        return new Server(name);
+        return new Server(id, name);
     }
 }

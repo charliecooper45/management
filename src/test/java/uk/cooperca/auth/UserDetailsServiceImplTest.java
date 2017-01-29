@@ -29,7 +29,7 @@ public class UserDetailsServiceImplTest {
 
     @Test
     public void testUserExists() {
-        User user = new User("user1", "", "", "");
+        User user = new User(1L, "user1", "", "", "");
         when(userService.findOneByUsername("user1")).thenReturn(Optional.of(user));
 
         UserDetails userDetails = userDetailsService.loadUserByUsername("user1");

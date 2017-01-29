@@ -14,9 +14,13 @@ import static javax.persistence.GenerationType.SEQUENCE;
  */
 @Entity
 @Table(name = "execution")
-public class Execution implements Serializable {
+public class Execution implements Serializable, IdentifiableEntity {
 
     private static final long serialVersionUID = 1L;
+
+    public enum Status {
+        STARTED, FAILED, FINISHED
+    }
 
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator="execution_id_seq")
@@ -37,17 +41,24 @@ public class Execution implements Serializable {
     @ManyToOne
     private User user;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     private Execution() {
         // for Hibernate
     }
 
-    public Execution(LocalDateTime startTime, LocalDateTime finishTime, Operation operation, User user) {
+    public Execution(Long id, LocalDateTime startTime, LocalDateTime finishTime, Operation operation, User user, Status status) {
+        this.id = id;
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.operation = operation;
         this.user = user;
+        this.status = status;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -66,5 +77,9 @@ public class Execution implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

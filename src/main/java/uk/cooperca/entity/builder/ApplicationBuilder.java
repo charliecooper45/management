@@ -7,10 +7,18 @@ import uk.cooperca.entity.Application;
  *
  * @author Charlie Cooper
  */
-public class ApplicationBuilder {
+public class ApplicationBuilder extends AbstractBuilder<Application> {
 
     private String name;
     private String description;
+
+    public ApplicationBuilder() {}
+
+    public ApplicationBuilder(Application application) {
+        super(application);
+        this.name = application.getName();
+        this.description = application.getDescription();
+    }
 
     public ApplicationBuilder name(String name) {
         this.name = name;
@@ -22,7 +30,8 @@ public class ApplicationBuilder {
         return this;
     }
 
+    @Override
     public Application build() {
-        return new Application(name, description);
+        return new Application(id, name, description);
     }
 }

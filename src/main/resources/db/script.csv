@@ -1,2 +1,2 @@
-path
-/tmp/script.sh
+command
+/tmp/management_copy.sh -h

@@ -99,19 +99,19 @@ databaseChangeLog:
                         constraints:
                             nullable: false
             - createSequence:
-                sequenceName: path_id_seq
+                sequenceName: script_id_seq
             - createTable:
                 tableName: script
                 columns:
                     - column:
                         name: id
                         type: bigint
-                        defaultValueSequenceNext: path_id_seq
+                        defaultValueSequenceNext: script_id_seq
                         constraints:
                             primaryKey: true
                             nullable: false
                     - column:
-                        name: path
+                        name: command
                         type: varchar(500)
             - createSequence:
                     sequenceName: execution_id_seq
@@ -139,6 +139,11 @@ databaseChangeLog:
                     - column:
                         name: user_id
                         type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: status
+                        type: varchar(9)
                         constraints:
                             nullable: false
     - changeSet:

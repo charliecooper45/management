@@ -17,7 +17,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
  */
 @Entity
 @Table(name = "application")
-public class Application implements Serializable {
+public class Application implements Serializable, IdentifiableEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,11 +43,13 @@ public class Application implements Serializable {
         // for Hibernate
     }
 
-    public Application(String name, String description) {
+    public Application(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

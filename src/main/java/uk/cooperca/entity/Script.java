@@ -14,17 +14,17 @@ import static javax.persistence.GenerationType.SEQUENCE;
  */
 @Entity
 @Table(name = "script")
-public class Script implements Serializable {
+public class Script implements Serializable, IdentifiableEntity {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = SEQUENCE, generator="path_id_seq")
-    @SequenceGenerator(name = "path_id_seq", sequenceName = "path_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator="script_id_seq")
+    @SequenceGenerator(name = "script_id_seq", sequenceName = "script_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "path")
-    private String path;
+    @Column(name = "command")
+    private String command;
 
     @OneToMany(mappedBy = "script")
     private Set<Operation> operations = new HashSet<>();
@@ -33,16 +33,18 @@ public class Script implements Serializable {
         // for Hibernate
     }
 
-    public Script(String path) {
-        this.path = path;
+    public Script(Long id, String command) {
+        this.id = id;
+        this.command = command;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
-    public String getPath() {
-        return path;
+    public String getCommand() {
+        return command;
     }
 
     public Set<Operation> getOperations() {

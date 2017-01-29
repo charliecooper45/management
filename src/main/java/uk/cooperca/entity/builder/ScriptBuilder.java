@@ -7,16 +7,24 @@ import uk.cooperca.entity.Script;
  *
  * @author Charlie Cooper
  */
-public class ScriptBuilder {
+public class ScriptBuilder extends AbstractBuilder<Script> {
 
-    private String path;
+    private String command;
 
-    public ScriptBuilder path(String path) {
-        this.path = path;
+    public ScriptBuilder() {}
+
+    public ScriptBuilder(Script script) {
+        super(script);
+        this.command = script.getCommand();
+    }
+
+    public ScriptBuilder command(String command) {
+        this.command = command;
         return this;
     }
 
+    @Override
     public Script build() {
-        return new Script(path);
+        return new Script(id, command);
     }
 }
