@@ -35,7 +35,6 @@ public class OperationResourceIntegrationTest {
 
     @Before
     public void setup() {
-        // create operations
         OperationResource operationResource = new OperationResource();
         ReflectionTestUtils.setField(operationResource, "operationService", operationService);
         mockMvc = MockMvcBuilders.standaloneSetup(operationResource).build();
