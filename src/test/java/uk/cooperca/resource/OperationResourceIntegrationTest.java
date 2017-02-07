@@ -59,4 +59,5 @@ public class OperationResourceIntegrationTest {
                 .andExpect(jsonPath("$.name").value("test_op1"));
     }
 
+    // TODO: integration test for performOperation (possible mock Runtime)
 }
