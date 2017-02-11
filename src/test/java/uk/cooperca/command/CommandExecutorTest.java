@@ -2,6 +2,7 @@ package uk.cooperca.command;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.test.util.ReflectionTestUtils;
 import uk.cooperca.auth.util.SecurityUtils;
 import uk.cooperca.entity.Execution;
@@ -15,11 +16,15 @@ import uk.cooperca.service.OperationService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
+
+import static uk.cooperca.entity.Execution.Status;
 
 public class CommandExecutorTest {
 
@@ -29,8 +34,6 @@ public class CommandExecutorTest {
     private SecurityUtils securityUtils;
     private Runtime runtime;
     private Process process;
-
-    // TODO: improve tests
 
     @Before
     public void setup() throws IOException {
@@ -74,9 +77,9 @@ public class CommandExecutorTest {
 
         commandExecutor.executeOperation(1L);
 
-        verify(executionService, times(2)).saveOrUpdate(any(Execution.class));
-        verifyNoMoreInteractions(executionService);
+        verifyExecutionStatus(Status.STARTED, Status.FAILED);
     }
+
 
     @Test
     public void testFailureIOException() throws InterruptedException, IOException {
@@ -84,8 +87,7 @@ public class CommandExecutorTest {
 
         commandExecutor.executeOperation(1L);
 
-        verify(executionService, times(2)).saveOrUpdate(any(Execution.class));
-        verifyNoMoreInteractions(executionService);
+        verifyExecutionStatus(Status.STARTED, Status.FAILED);
     }
 
     @Test
@@ -94,15 +96,24 @@ public class CommandExecutorTest {
 
         commandExecutor.executeOperation(1L);
 
-        verify(executionService, times(2)).saveOrUpdate(any(Execution.class));
-        verifyNoMoreInteractions(executionService);
+        verifyExecutionStatus(Status.STARTED, Status.FAILED);
     }
 
     @Test
     public void testSuccess() {
         commandExecutor.executeOperation(1L);
 
-        verify(executionService, times(2)).saveOrUpdate(any(Execution.class));
+        verifyExecutionStatus(Status.STARTED, Status.FINISHED);
+    }
+
+    private void verifyExecutionStatus(Status initialStatus, Status finalStatus) {
+        ArgumentCaptor<Execution> executionCaptor = ArgumentCaptor.forClass(Execution.class);
+        verify(executionService, times(2)).saveOrUpdate(executionCaptor.capture());
+
+        List<Execution> capturedPeople = executionCaptor.getAllValues();
+        assertThat(capturedPeople.get(0).getStatus()).isEqualTo(initialStatus);
+        assertThat(capturedPeople.get(1).getStatus()).isEqualTo(finalStatus);
+
         verifyNoMoreInteractions(executionService);
     }
 }
