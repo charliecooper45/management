@@ -40,9 +40,11 @@ public class OperationResource {
     @PutMapping("/{id}")
     public ResponseEntity performOperation(@PathVariable Long id) {
         try {
-            operationService.performOperation(id);
+            if (!operationService.performOperation(id)) {
+                return ResponseEntity.badRequest().body("execution of operation failed");
+            }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok(null);
     }

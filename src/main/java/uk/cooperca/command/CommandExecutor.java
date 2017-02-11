@@ -59,7 +59,7 @@ public class CommandExecutor {
 
     private boolean execute(User user, Operation operation) {
         Execution execution = null;
-        LocalDateTime finishTime = null;
+        LocalDateTime finishTime;
         try {
             execution = executionService.saveOrUpdate(new ExecutionBuilder()
                 .startTime(LocalDateTime.now(ZoneId.of("UTC")))

@@ -214,4 +214,8 @@ databaseChangeLog:
                 tableName: operation
                 file: db/operation.csv
                 separator: ;
+            - loadData:
+                tableName: execution
+                file: db/execution.csv
+                separator: ;
 

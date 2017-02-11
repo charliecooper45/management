@@ -31,7 +31,7 @@ public class OperationService {
         return operationRepository.findOne(id);
     }
 
-    public void performOperation(Long id) throws IOException, InterruptedException {
-        commandExecutor.executeOperation(id);
+    public boolean performOperation(Long id) throws IOException, InterruptedException {
+        return commandExecutor.executeOperation(id);
     }
 }

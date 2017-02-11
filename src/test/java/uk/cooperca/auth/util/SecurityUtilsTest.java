@@ -14,15 +14,14 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SecurityUtilsTest {
 
     private UserService userService;
     private SecurityUtils securityUtils;
     private SecurityContext securityContext;
+    private Authentication authentication;
 
     @Before
     public void setup() {
@@ -31,12 +30,12 @@ public class SecurityUtilsTest {
         ReflectionTestUtils.setField(securityUtils, "userService", userService);
         securityContext = mock(SecurityContext.class);
         SecurityContextHolder.setContext(securityContext);
+        authentication = mock(Authentication.class);
     }
 
     @Test
-    public void testGetCurrentAuthenticatedUser() {
+    public void testGetCurrentAuthenticatedUserSuccess() {
         String testUsername = "test-user";
-        Authentication authentication = mock(Authentication.class);
         when(authentication.getPrincipal()).thenReturn(
                 new org.springframework.security.core.userdetails.User(testUsername, "", Collections.emptyList())
         );
@@ -49,5 +48,14 @@ public class SecurityUtilsTest {
         assertThat(user.isPresent()).isTrue();
         assertThat(user.get().getUsername()).isEqualTo(testUsername);
         verify(userService).findOneByUsername(testUsername);
+    }
+
+    @Test
+    public void testGetCurrentAuthenticatedUserFailure() {
+        when(securityContext.getAuthentication()).thenReturn(null);
+
+        Optional<User> user = securityUtils.getCurrentAuthenticatedUser();
+        assertThat(user.isPresent()).isFalse();
+        verifyZeroInteractions(userService);
     }
 }

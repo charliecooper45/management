@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import uk.cooperca.entity.Execution;
 import uk.cooperca.repository.ExecutionRepository;
 
+import java.util.List;
+
 /**
  * Service for {@link Execution}s.
  *
@@ -18,5 +20,9 @@ public class ExecutionService {
 
     public Execution saveOrUpdate(Execution execution) {
         return executionRepository.saveAndFlush(execution);
+    }
+
+    public List<Execution> findAll() {
+        return executionRepository.findAll();
     }
 }
