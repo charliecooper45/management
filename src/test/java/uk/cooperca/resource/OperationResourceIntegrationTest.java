@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.cooperca.ManagementApplication;
 import uk.cooperca.service.OperationService;
 
-import javax.transaction.Transactional;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,7 +39,6 @@ public class OperationResourceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void testGet() throws Exception {
         mockMvc.perform(get("/api/operations"))
                 .andExpect(status().isOk())
@@ -50,7 +47,6 @@ public class OperationResourceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void testGetOne() throws Exception {
         mockMvc.perform(get("/api/operations/1"))
                 .andExpect(status().isOk())

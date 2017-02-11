@@ -50,7 +50,6 @@ public class LoginResourceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void testSuccessfulLogin() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -60,7 +59,6 @@ public class LoginResourceIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void testFailedLogin() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)

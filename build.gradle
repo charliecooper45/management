@@ -45,6 +45,7 @@ dependencies {
 	compile("org.liquibase:liquibase-core:${liquibase_core_version}")
 	compile("org.hibernate:hibernate-core:${hibernate_core_version}")
 	compile("io.jsonwebtoken:jjwt:${jjwt_version}")
+	compile("org.mockito:mockito-core:${mockito_version}")
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("org.springframework.boot:spring-boot-starter-security")
 	compile("org.springframework.boot:spring-boot-starter-web")
