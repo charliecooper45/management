@@ -30,12 +30,10 @@ public class Operation implements Serializable, IdentifiableEntity {
     @Column(name = "name")
     private String name;
 
-    @JsonIgnore
     @NotNull
     @ManyToOne
     private Application application;
 
-    @JsonIgnore
     @NotNull
     @ManyToOne
     private Script script;

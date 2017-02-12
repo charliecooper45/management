@@ -5,9 +5,24 @@
         <h3 class="panel-title">Operations</h3>
       </div>
       <div class="panel-body">
-        <p ng-repeat="operation in vm.operations">
-          <a ui-sref="operation({ id: operation.id })">{{operation.name}}</a>
-        </p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Application</th>
+              <th>Script</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="operation in vm.operations">
+                <td>{{operation.id}}</td>
+                <td><a ui-sref="operation({ id: operation.id })">{{operation.name}}</a></td>
+                <td>{{operation.application.name}}</td>
+                <td>{{operation.script.command}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

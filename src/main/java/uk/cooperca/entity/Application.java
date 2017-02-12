@@ -1,5 +1,7 @@
 package uk.cooperca.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -33,9 +35,11 @@ public class Application implements Serializable, IdentifiableEntity {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "applications")
     private Set<Server> servers = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "application")
     private Set<Operation> operations = new HashSet<>();
 

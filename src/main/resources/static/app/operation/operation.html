@@ -6,9 +6,16 @@
       </div>
       <div class="panel-body">
         <div>
-          <p>{{vm.operation.id}}</p>
-          <p>{{vm.operation.name}}</p>
-          <div>Back to <a ui-sref="operations">operations</a></div>
+          <p><strong>ID:</strong>&nbsp;{{vm.operation.id}}</p>
+          <p><strong>Name:</strong>&nbsp;{{vm.operation.name}}</p>
+        </div>
+        <br/>
+        <br/>
+        <div class="text-right">
+          <a ui-sref="operations">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            Operations
+          </a>
         </div>
       </div>
     </div>

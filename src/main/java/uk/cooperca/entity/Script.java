@@ -1,5 +1,7 @@
 package uk.cooperca.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,6 +28,7 @@ public class Script implements Serializable, IdentifiableEntity {
     @Column(name = "command")
     private String command;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "script")
     private Set<Operation> operations = new HashSet<>();
 
