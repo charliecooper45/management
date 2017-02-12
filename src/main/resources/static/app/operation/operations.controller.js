@@ -10,8 +10,6 @@
     function OperationsController(Operation) {
         var vm = this;
 
-        vm.message = 'Hello World from my controller in a separate file!';
-
         loadAll();
 
         function loadAll() {
