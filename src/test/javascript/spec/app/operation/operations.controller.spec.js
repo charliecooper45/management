@@ -15,8 +15,7 @@ describe('Operations Controller', function() {
 
     beforeEach(module('managementApp'));
 
-    beforeEach(inject(function(_$controller_, _Operation_) {
-        $controller = _$controller_;
+    beforeEach(inject(function($controller, _Operation_) {
         OperationFactory = _Operation_;
 
         spyOn(OperationFactory, 'query').and.callFake(function() {
