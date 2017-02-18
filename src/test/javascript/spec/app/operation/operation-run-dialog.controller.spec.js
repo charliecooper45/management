@@ -23,7 +23,6 @@ describe('OperationRunDialog Controller', function() {
     });
 
     it('should run the operation', function() {
-
         OperationRunDialogController.runOperation();
         expect($uibModalInstance.close).toHaveBeenCalledWith(true);
     });
