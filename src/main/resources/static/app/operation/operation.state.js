@@ -35,6 +35,22 @@
                         return Operation.get({id:$stateParams.id});
                     }]
                 }
+            })
+            .state('operation.run', {
+                parent: 'operation',
+                url: '/run',
+                onEnter: ['$state', '$uibModal', function($state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'app/operation/operation-run-dialog.html',
+                        controller: 'OperationRunDialogController',
+                        controllerAs: 'vm',
+                        size: 'md'
+                    }).result.then(function() {
+                        $state.go('^');
+                    }, function() {
+                        $state.go('^');
+                    });
+                }]
             });
     }
 })();
